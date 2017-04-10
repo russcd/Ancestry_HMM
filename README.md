@@ -1,5 +1,5 @@
-Ancestry_HMM version 0.4
+Ancestry_HMM version 0.94
 
-To compile:
+The latest version is included in the src/ directory. A complete usage example is in the example/ directory. 
 
-g++ -std=c++0x -ltcmalloc -O3 -o ancestry_hmm ancestry_hmm_V0.4.cpp 
+The original version, released in our PLoS Genetics paper, is maintained in version_0.4/. 

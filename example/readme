@@ -1,0 +1,7 @@
+cmd line:
+
+./ancestry_hmm -i example.panel -s example.sample -a 2 0.8 0.2 -p 0 100000 0.8 -p 1 10 0.2 -g -e 1e-3
+
+This will fit a model of a single pulse at time 10 with 80% of individuals from the first population, and 20% from the second. 
+Genotypes are used with a uniform error rate of 1e-3. 
+All individuals are ploidy 2. 

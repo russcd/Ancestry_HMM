@@ -13,18 +13,18 @@ void check_vertex( vector<pulse> &vertex, cmd_line &options ) {
     for ( int p = 0 ; p < vertex.size() ; p ++ ) {
         if ( vertex[p].time_fixed == false ) {
             if ( vertex[p].time > options.t_max ) {
-                vertex[p].time = options.t_max - ((double) rand() / (RAND_MAX))*1/range_term * ( options.t_max - options.t_min ) ;
+                vertex[p].time = options.t_max - ((double) rand() / (RAND_MAX))*range_term * ( options.t_max - options.t_min ) ;
             }
             else if ( vertex[p].time < options.t_min ) {
-                vertex[p].time = options.t_min + ((double) rand() / (RAND_MAX))*1/range_term * ( options.t_max - options.t_min ) ;
+                vertex[p].time = options.t_min + ((double) rand() / (RAND_MAX))*range_term * ( options.t_max - options.t_min ) ;
             }
         }
         if ( vertex[p].proportion_fixed == false ) {
             if ( vertex[p].fraction_of_remainder > options.p_max ) {
-                vertex[p].fraction_of_remainder = options.p_max - ((double) rand() / (RAND_MAX))*1/range_term * ( options.p_max - options.p_min ) ;
+                vertex[p].fraction_of_remainder = options.p_max - ((double) rand() / (RAND_MAX))*range_term * ( options.p_max - options.p_min ) ;
             }
             else if ( vertex[p].fraction_of_remainder < options.p_min ) {
-                vertex[p].fraction_of_remainder = options.p_min + ((double) rand() / (RAND_MAX))*1/range_term * ( options.p_max - options.p_min ) ;
+                vertex[p].fraction_of_remainder = options.p_min + ((double) rand() / (RAND_MAX))*range_term * ( options.p_max - options.p_min ) ;
             }
         }
     }

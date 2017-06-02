@@ -83,9 +83,6 @@ void create_emissions_matrix( double n, input_line &new_line, bool &ancestral_fi
             }
         }
     }
-    
-    cout << emission_matrix << endl ; 
-    
     return ;
 }
 #endif

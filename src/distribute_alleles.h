@@ -1,36 +1,48 @@
 #ifndef __DISTRIBUTE_ALLELES_H
 #define __DISTRIBUTE_ALLELES_H
 
+/// solution to computing all ways of distributing A reads among vector of read counts
+/// using recursion to generate all possible lists of outcomes stored in nA
+void compute_allele_counts( vector<vector<double> > &nA, vector<double> nA_iteration, vector<int> &read_counts, double A, double t, int pop ) {
+   
+    int min = 0 ;
+    if ( t - read_counts[pop] < A ) {
+        min = A - ( t - read_counts[pop] ) ;
+    }
+    int max = read_counts[pop] ;
+    if ( A < read_counts[pop] ) {
+        max = A ;
+    }
+    
+    for ( int c = min ; c <= max ; c ++ ) {
+        nA_iteration.push_back(c) ;
+        if ( pop == read_counts.size() - 1 ) {
+            nA.push_back( nA_iteration ) ;
+        }
+        else {
+            compute_allele_counts( nA, nA_iteration, read_counts, A - c, t - read_counts[pop], pop + 1 ) ;
+        }
+        nA_iteration.pop_back() ;
+    }
+}
+
 /// distribute alleles (if genotype space) across all possible states
 /// read counts is the number of chromosomes from each pulse
 void distribute_alleles ( vector<int> &read_counts, double &A, double &read_total, map <vector<double>, double > &A_counts ) {
     
-    /// read origins
-    vector<int> read_origins ;
-    for ( int r = 0 ; r < read_counts.size() ; r ++ ) {
-        for ( int l = 0 ; l < read_counts.at(r) ; l ++ ) {
-            read_origins.push_back( r ) ;
+    vector<double> nA_iteration ;
+    vector<vector<double> > nA ;
+    compute_allele_counts( nA, nA_iteration, read_counts, A, read_total, 0 ) ;
+    
+    /// now compute ways to get to those arrangements
+    double total = 0 ;
+    for ( int n = 0 ; n < nA.size() ; n ++ ) {
+        double sum = 1 ;
+        for ( int l = 0 ; l < nA[n].size() ; l ++ ) {
+            sum *= nCk[read_counts[l]][nA[n][l]] ;
         }
-    }
-    
-    /// create vector of all reads 0 and 1
-    vector<int> counts (A, 1) ;
-    for ( int l = A ; l < read_total ; l ++ ) {
-        counts.push_back( 0 ) ;
-    }
-    
-    /// get all unique arrangements
-    vector< vector<int> > results = multipermute( counts ) ;
-    
-    /// now distribute into class bins by alinging all results with the read origins
-    for ( int i = 0 ; i < results.size() ; i ++ ) {
-        vector<double> A_count( read_counts.size(), 0 ) ;
-        for ( int r = 0 ; r < results.at(i).size() ; r ++ ) {
-            if ( results[i][r] == 1 ) {
-                A_count[read_origins[r]] ++ ;
-            }
-        }
-        A_counts[A_count] ++ ;
+        A_counts[nA[n]] = sum ;
+        total += sum ;
     }
 }
 

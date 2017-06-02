@@ -15,7 +15,7 @@ void create_emissions_matrix( double n, input_line &new_line, bool &ancestral_fi
     
     /// i is the index of the state we're in
     for ( double i = 0 ; i < states.size() ; i ++ ) {
-                
+        
         /// ancestry states
         vector<int> ancestry_states = pulses_to_ancestry( states[i], pulses ) ;
         
@@ -29,7 +29,7 @@ void create_emissions_matrix( double n, input_line &new_line, bool &ancestral_fi
             
             // the probability of this particular sampling of reads given the state i
             double p_reads = multinomial( n, new_line.sample_counts[sample_index][2], read_counts[rc], ancestry_states ) ;
-            
+                        
             /// now we need to distribute our alleles
             /// this data object is the number of A reads from each class, conditional on the number of reads from each class, i.e. A_counts[i][j] < read_counts[r][j]
             map<vector<double>, double > A_counts ;
@@ -37,10 +37,10 @@ void create_emissions_matrix( double n, input_line &new_line, bool &ancestral_fi
             
             /// now compute probability of each sampling arrangement
             for ( std::map<vector<double>,double>::iterator a = A_counts.begin() ; a != A_counts.end() ; ++ a ) {
+                
                 double prob_counts = 1 ;
                 for ( int c = 0 ; c < a->first.size() ; c ++ ) {
                     double sum = 0 ;
-                    
                     /// whether ancestral frequencies are not fixed [default]
                     if ( ancestral_fixed == false ) {
                         /// number of samples that are allele A is j
@@ -83,6 +83,8 @@ void create_emissions_matrix( double n, input_line &new_line, bool &ancestral_fi
             }
         }
     }
+    
+    cout << emission_matrix << endl ; 
     
     return ;
 }

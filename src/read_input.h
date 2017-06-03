@@ -50,6 +50,13 @@ void read_file ( cmd_line &options, vector<markov_chain> &markov_chain_informati
         for ( int m = 0 ; m < markov_chain_information.size() ; m ++ ) {
             double count1, count2 ;
             in >> count1 >> count2 ;
+            
+            /// subsample reads to a maximum depth so we can compute multinomial probs without overflow errors
+            if ( count1 + count2 > 170 ) {
+                subsample_reads( count1, count2 ) ;
+            }
+            
+            /// now store counts and total for sample
             new_line.sample_counts[m].push_back(count1) ;
             new_line.sample_counts[m].push_back(count2) ;
             new_line.sample_counts[m].push_back(count1+count2) ;

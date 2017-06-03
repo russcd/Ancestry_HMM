@@ -29,7 +29,7 @@ void create_emissions_matrix( double n, input_line &new_line, bool &ancestral_fi
             
             // the probability of this particular sampling of reads given the state i
             double p_reads = multinomial( n, new_line.sample_counts[sample_index][2], read_counts[rc], ancestry_states ) ;
-                        
+                                    
             /// now we need to distribute our alleles
             /// this data object is the number of A reads from each class, conditional on the number of reads from each class, i.e. A_counts[i][j] < read_counts[r][j]
             map<vector<double>, double > A_counts ;

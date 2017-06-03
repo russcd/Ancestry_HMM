@@ -27,6 +27,7 @@ using namespace arma ;
 /// our header files in /src directory
 #include "factorial.h"
 #include "nchoosek.h" 
+#include "subsample.h" 
 #include "multichoose.h"
 #include "multipermute.h"
 #include "normalize.h"
@@ -64,6 +65,9 @@ int main ( int argc, char *argv[] ) {
     /// time tracking
     clock_t t = clock() ;
     clock_t total = clock() ;
+    
+    /// seed prng
+    srand (t) ;
     
 	// read cmd line 
 	cmd_line options ;

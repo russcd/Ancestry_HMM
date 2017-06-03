@@ -21,7 +21,7 @@ void markov_chain::combine_prob( vector<int> &position, map<int, vector<vector<i
         
         /// get unique and sorted list of vectors of each ancestry type
         map<int,map<vector<int>,int > > ancestry_states ;
-        for ( std::map<int,map<int,vector<int> > >::iterator auto p = ploidy2pulse2ancestry.begin() ; p != ploidy2pulse2ancestry.end() ; ++ p ) {
+        for ( std::map<int,map<int,vector<int> > >::iterator p = ploidy2pulse2ancestry.begin() ; p != ploidy2pulse2ancestry.end() ; ++ p ) {
             for ( std::map<int,vector<int> >::iterator i = p->second.begin() ; i != p->second.end() ; ++ i ) {
                 ancestry_states[p->first][i->second] = 0 ;
             }

@@ -130,10 +130,16 @@ void cmd_line::read_cmd_line ( int argc, char *argv[] ) {
             }
             
             //// check that ancestry proportions sum to one
-            if ( sum < 0.999999999 || sum > 1.000000001 ) {
+            if ( sum < 0.9999 || sum > 1.0001 ) {
                 cerr << "\n\n\t\t ERROR: ancestry proportions must sum to one\n\n" ;
+                print_usage() ;
                 exit(1) ;
             }
+        }
+        
+        if ( strcmp(argv[i],"--help") == 0 ) {
+            print_usage() ;
+            exit(1) ; 
         }
         
         if ( strcmp(argv[i],"-g") == 0 ) {
@@ -215,10 +221,12 @@ void cmd_line::read_cmd_line ( int argc, char *argv[] ) {
     
     if ( input_file == "null" ) {
         cerr << "\n\n\t\tERROR: must provide input file\n\n\t\t\t-i [path/to/input_file]\n\n" ;
+        print_usage() ;
         exit(1) ;
     }
     if ( sample_file == "null" ) {
         cerr << "\n\n\t\tERROR: must provide sample file\n\n\t\t\t-s [path/to/sample_file]\n\n" ;
+        print_usage() ;
         exit(1) ;
     }
         

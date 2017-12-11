@@ -25,6 +25,7 @@ using namespace std ;
 using namespace arma ;
 
 /// our header files in /src directory
+#include "print_usage.h"
 #include "factorial.h"
 #include "nchoosek.h" 
 #include "subsample.h" 

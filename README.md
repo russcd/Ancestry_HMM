@@ -18,15 +18,15 @@ If you cannot get a root installation of armadillo, the following stackoverflow 
 
 It is also recommend that users install the google-perftools package as compilation using tcmalloc tends to decrease runtimes, sometimes substantially. However, this is not necessary to use the software. 
 
-####Note: 
+#### Note: 
 
 The current version of Ancestry_HMM includes functionality for fitting multiple pulse ancestry models. Our method can accommodate multiple admixture pulses from multiple source populations. More information on our method's performance with multiple pulse models can be found in Medina et al. 2018. Single pulse models perform as described previously in Corbett-Detig and Nielsen (2017). 
 
-####Basic Usage:
+#### Basic Usage:
 
         $ ancestry_hmm (options) –i [input_file] –s [sample_file] 
 
-####Detailed Options and Usage:
+#### Detailed Options and Usage:
 
 *Required: Overall ancestry proportion*
 
@@ -93,7 +93,7 @@ A single file, specifying sample ID’s and their ploidy, or path to a ploidy ma
 --fix	Ancestral allele frequencies are fixed, rather than treated as uncertain. This is expected to be useful when parental sequences are known with certainty, for example in performing qtl mapping or in experimental evolution studies.   
 
 
-####Sample File Format
+#### Sample File Format
 
 As of version 0.9+, all samples must be specified within a single tab-delimited input file. Each line corresponds to a single sample (in the same order as they are present in the input file). For example, in a file with three samples, the first of ploidy 2 and the second of ploidy 1 and the third of ploidy 2 the first two lines would be
 
@@ -105,7 +105,7 @@ Note that sample IDs must be unique for all runs of the software in a given dire
 
 Optionally, this file may indicate that samples have variable ploidy by including the full path to a file containing the coordinates of various ploidy levels in the sample (see below). 
 
-####Input File Format
+#### Input File Format
 
 The following lines specify the allele counts in the reference panels and in the samples. 
 
@@ -131,7 +131,7 @@ Each sample is then represented by two columns with counts corresponding to
 
 Additional samples could then be represented by additional pairs of columns. The total number of columns following the recombination rate (and optionally, the site specific error rates), should be exactly equal to the number of samples times two.   
 
-####Output File Format
+#### Output File Format
 
 The output file is also tab delimited. Each sample will have a separate out file, specified via the sample file as described above. The first line of the file defines the state to which each posterior probability corresponds. Specifically, it will begin with “chrom\tposition\t” and then list the states that are represented by columns 3-n below. The format of this file is
 
@@ -147,7 +147,7 @@ Alternatively, if ‘-v’ is specified on the command line, this program will p
 3.	The position of the end of the tract  
 4.	The state of the tract  
 
-####State Format
+#### State Format
 
 In the program output, ancestry states are represented by counts of the number of chromosomes in each ancestry pulse (in order that the pulses are entered on the command line). The number of chromosomes counted in each state will sum to the sample ploidy. Therefore, if there are two ancestry types present and the sample is ploidy 2, the following states are possible. 
 
@@ -169,7 +169,7 @@ Alternatively, if the “--output-ancestry” command line option is used, the s
 
 0,1  
 
-####Variable Sample Ploidy 
+#### Variable Sample Ploidy 
 
 It is common for chromosomes to be partially inbred in population sequencing applications. In general, it is preferable to model the inbred segments as a single haploid chromosome, and the outbred segments as a diploid chromosome. We have therefore provided a function to given the program a defined ploidy map (a file that specifies which portions of the genome are inbred and outbred along a sample). To do this, the sample file must be modified slightly. Specifically, each line must include the name of the sample, a number less than 0, and the path to a file containing the ploidy map. For example the following:
 

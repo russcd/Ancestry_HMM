@@ -1,14 +1,14 @@
-#Ancestry HMM Manual  
-#Version 0.94  
-###Russ Corbett-Detig  
+# Ancestry HMM Manual  
+# Version 0.94  
+### Russ Corbett-Detig  
 
-####Download and Compile:  
+#### Download and Compile:  
 
         $ git clone https://github.com/russcd/Ancestry_HMM.git
         $ cd Ancestry_HMM/src/
         $ make
 
-####Dependencies:  
+#### Dependencies:  
 
 As of version >0.9, the software requires the C++ linear algebra library, armadillo. More information and detailed download instructions can be found here, http://arma.sourceforge.net/. Using homebrew on OSX, this software can be installed using
 

@@ -20,9 +20,10 @@ It is also recommend that users install the google-perftools package as compilat
 
 #### Note: 
 
-The current version of Ancestry_HMM includes functionality for fitting multiple pulse ancestry models. Our method can accommodate multiple admixture pulses from multiple source populations. More information on our method's performance with multiple pulse models can be found in Medina et al. (2018). Single pulse models perform as described previously in Corbett-Detig and Nielsen (2017). 
+Information on our method's performance with multiple pulse models can be found in Medina et al. (2018). Single pulse models perform as described previously in Corbett-Detig and Nielsen (2017). 
 
 The version used to produce the results in Corbett-Detig and Nielsen is maintained as version_0.4/
+
 The version used to produce the resutls in Medina et al. is maintained as version_0.94/ 
 
 #### Basic Usage:

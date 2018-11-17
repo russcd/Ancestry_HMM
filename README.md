@@ -40,7 +40,7 @@ This option specifies the number of ancestral populations (the first argument) a
 	
         -a 3 0.6 0.2 0.2 
 
-In general, it is straightforward to estimate the global ancestry proportions in an admixed population using available software packages such as Admixture, NGSAdmix, or Structure, we therefore recommend using one of these software packages prior to working on local ancestry inferences using this software (however, see section XXX below). 
+In general, it is straightforward to estimate the global ancestry proportions in an admixed population using available software packages such as Admixture, NGSAdmix, or Structure, we therefore recommend using one of these software packages prior to working on local ancestry inferences using this software. 
 
 *Required: Ancestry Pulses*
 

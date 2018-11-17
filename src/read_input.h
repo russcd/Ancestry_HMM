@@ -62,28 +62,30 @@ void read_file ( cmd_line &options, vector<markov_chain> &markov_chain_informati
             new_line.sample_counts[m].push_back(count1+count2) ;
         }
         
-        /// ignore lines where recombination may not be suffiicent to make sites independent
-        /// this might be useful in place of LD pruning
-        extra_recombination += new_line.recombination_rate ;
-        if ( extra_recombination < options.minimum_distance ) {
-            continue ;
-        }
-        new_line.recombination_rate = extra_recombination ;
-        extra_recombination = 0 ;
-        
-        /// record recombination rate information per bp
         if ( new_line.chrom != last_chrom ) {
             recombination_rate.push_back( 0.5 ) ;
             last_chrom = new_line.chrom ;
+            extra_recombination = 0 ; 
         }
+
+        /// ignore lines where recombination may not be suffiicent to make sites independent
+        /// this might be useful in place of LD pruning
         else {
+
+            extra_recombination += new_line.recombination_rate ;
+            if ( extra_recombination < options.minimum_distance ) {
+                continue ;
+            }
+            new_line.recombination_rate = extra_recombination ;
+            extra_recombination = 0 ;
+        
             recombination_rate.push_back( new_line.recombination_rate/ ( new_line.pos - position.back() ) ) ;
         }
-        
+
         /// record position
         position.push_back( new_line.pos ) ;
         chromosomes.push_back( new_line.chrom ) ;
-        
+
         /// check all path indexes and update as needed
         for ( int m = 0 ; m < markov_chain_information.size() ; m ++ ) {
             

@@ -1,6 +1,4 @@
 /*
- 
- Anestry_HMM version 0.94
 
  copyright: Russ Corbett-Detig
             rucorbet@ucsc.edu

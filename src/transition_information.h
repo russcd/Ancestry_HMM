@@ -17,14 +17,6 @@ public:
     }
 } ;
 
-double fact ( double n ) { 
-	double fact = 1 ; 
-	for ( double x = 1 ; x <= n ; x ++ ) {
-		fact *= x ; 
-	}
-	return fact ; 
-}
-
 /// object will be sets of sets of outcomes 
 void enumerate_rows ( double ploidy, int row, vector<int> &pulse_types, vector<vector<int> > &output ) { 
 

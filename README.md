@@ -12,7 +12,7 @@
 
 As of version >0.9, the software requires the C++ linear algebra library, armadillo. More information and detailed download instructions can be found here, http://arma.sourceforge.net/. Using homebrew on OSX, this software can be installed using
 
-        $ brew install homebrew/science/armadillo
+        $ brew install armadillo
 
 If you cannot get a root installation of armadillo, the following stackoverflow link is helpful for linking a locally installed armadillo during compilation: http://stackoverflow.com/questions/10168181/armadillo-installation. 
 

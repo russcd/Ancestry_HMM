@@ -10,7 +10,7 @@
 
 #### Dependencies:  
 
-As of version >0.9, the software requires the C++ linear algebra library, armadillo. More information and detailed download instructions can be found here, http://arma.sourceforge.net/. Using homebrew on OSX, this software can be installed using
+The software requires the C++ linear algebra library, armadillo. More information and detailed download instructions can be found here, http://arma.sourceforge.net/. Using homebrew on OSX, this software can be installed using
 
         $ brew install armadillo
 
@@ -28,7 +28,7 @@ The version used to produce the resutls in Medina et al. is maintained as versio
 
 #### Basic Usage:
 
-        $ ancestry_hmm (options) –i [input_file] –s [sample_file] 
+        $ ancestry_hmm –i [input_file] –s [sample_file] -a [int] [double] [double] -p [int] [int] [double] -p [int] [int] [double]
 
 #### Detailed Options and Usage:
 
@@ -213,13 +213,12 @@ publisher={Public Library of Science} }
 Medina, Paloma, Bryan Thornlow, Rasmus Nielsen, and Russell Corbett-Detig. 2018. “Estimating the Timing of Multiple Admixture Pulses During Local Ancestry Inference.” Genetics, September. https://doi.org/10.1534/genetics.118.301411.
 
 @article {Medinagenetics.301411.2018,
-	author = {Medina, Paloma and Thornlow, Bryan and Nielsen, Rasmus and Corbett-Detig, Russell},
-	title = {Estimating the Timing of Multiple Admixture Pulses During Local Ancestry Inference},
-	year = {2018},
-	doi = {10.1534/genetics.118.301411},
-	publisher = {Genetics},
-	issn = {0016-6731},
-	URL = {http://www.genetics.org/content/early/2018/09/11/genetics.118.301411},
-	eprint = {http://www.genetics.org/content/early/2018/09/11/genetics.118.301411.full.pdf},
-	journal = {Genetics}
-}
+author = {Medina, Paloma and Thornlow, Bryan and Nielsen, Rasmus and Corbett-Detig, Russell},
+title = {Estimating the Timing of Multiple Admixture Pulses During Local Ancestry Inference},
+year = {2018},
+doi = {10.1534/genetics.118.301411},
+publisher = {Genetics},
+issn = {0016-6731},
+URL = {http://www.genetics.org/content/early/2018/09/11/genetics.118.301411},
+eprint = {http://www.genetics.org/content/early/2018/09/11/genetics.118.301411.full.pdf},
+journal = {Genetics} }

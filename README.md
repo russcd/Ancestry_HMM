@@ -16,7 +16,7 @@ The software requires the C++ linear algebra library, armadillo. More informatio
 
 If you cannot get a root installation of armadillo, we recommend miniconda3
 
-	$ conda install -c conda-forge armadillo
+        $ conda install -c conda-forge armadillo
 
 Information on how to link a conda-based installation of armadillo during compilation and runtime is provided in src/Makefile. 
 

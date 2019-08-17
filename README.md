@@ -14,7 +14,11 @@ The software requires the C++ linear algebra library, armadillo. More informatio
 
         $ brew install armadillo
 
-If you cannot get a root installation of armadillo, the following stackoverflow link is helpful for linking a locally installed armadillo during compilation: http://stackoverflow.com/questions/10168181/armadillo-installation. 
+If you cannot get a root installation of armadillo, we recommend miniconda3
+
+	$ conda install -c conda-forge armadillo
+
+Information on how to link a conda-based installation of armadillo during compilation and runtime is provided in src/Makefile. 
 
 It is also recommend that users install the google-perftools package as compilation using tcmalloc tends to decrease runtimes, sometimes substantially. However, this is not necessary to use the software. 
 

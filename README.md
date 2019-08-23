@@ -13,7 +13,11 @@
 The software requires the C++ linear algebra library, armadillo. More information and detailed download instructions can be found here, http://arma.sourceforge.net/. Using homebrew on OSX, this software can be installed using
 
         $ brew install armadillo
+	
+On Ubuntu:
 
+        $ sudo apt-get install libarmadillo-dev
+	
 If you cannot get a root installation of armadillo, we recommend miniconda3
 
         $ conda install -c conda-forge armadillo

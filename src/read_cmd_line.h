@@ -229,7 +229,11 @@ void cmd_line::read_cmd_line ( int argc, char *argv[] ) {
         print_usage() ;
         exit(1) ;
     }
-        
+    if ( ancestry_proportion.size() > ancestry_pulses.size() ) {
+	cerr << "\n\n\t\tERROR: insufficient ancestry pulses specified\n\n" ;
+	print_usage() ; 
+	exit(1) ; 
+    }
     return ;
 }
 

@@ -25,6 +25,8 @@ sample5 admixed
 
 This file has two individuals from ancestral population 0, two individuals from ancestral population 1, and a single admixed sample.
 
+Note that ancestry_hmm will still require a sample input file indicating the ploidy of each admixed sample. 
+
 ## Assumptions:
 
 1. Sample are either diploid or haploid. The allele depth field (AD), immediately follows the genotype (GT) in the vcf format. This is typical of most VCF files. 

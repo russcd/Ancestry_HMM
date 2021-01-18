@@ -37,5 +37,6 @@ Note that ancestry_hmm will still require a sample input file indicating the plo
 1. "-g 1" indicates that admixed sample genotypes (rather than allele counts) should be used
 2. "-r [float]" sets the per site generation rate
 3. "-m [int]" minimum distance in basepairs between successful SNPs to be included in this analysis 
-4. "--min_total [int]" minimum number of samples in each ancestral population to consider a site. Default 10. 
-5. "--min_diff [float]" minimum allele frequency difference between any pair of ancestral populations to include a site. I.e., this selects AIMs. Default 0.1. 
+4. "-o [string]" file to print admixed sample ploidy for ahmm input. Default is ploidy.txt
+5. "--min_total [int]" minimum number of samples in each ancestral population to consider a site. Default 10. 
+6. "--min_diff [float]" minimum allele frequency difference between any pair of ancestral populations to include a site. I.e., this selects AIMs. Default 0.1. 

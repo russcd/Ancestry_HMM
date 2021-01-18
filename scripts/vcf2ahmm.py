@@ -9,6 +9,7 @@ parser.add_argument("-s", type=str, help="sample to population file", required=T
 parser.add_argument("-g", type=int, help="boolean (0 = use sample reads| 1 = use genotypes)", default = 0 )
 parser.add_argument("-r", type=float, help="uniform recombination rate per bp in morgans/bp (float)", default = 1e-8 )
 parser.add_argument("-m", type=int, help="minimum distance between successive snps (int,bp)", default = 1000 )
+parser.add_argument("-o", type=str, help="ploidy file for ahmm input", default = "ahmm.ploidy")
 parser.add_argument("--min_total", type=int, help="minimum number of reference population samples (int)", default = 10 )
 parser.add_argument("--min_diff",type=float, help="minimum allele frequency difference between a pair of populations (float)", default = 0.1 )
 args = parser.parse_args()
@@ -26,6 +27,9 @@ sample_fields = []
 ### keep track of where we are on the chromosome
 last_position = -10000000
 current_chrom = "NA"
+
+### have we printed the ploidy file yet
+ploidy_print = 0
 
 ## read the vcf file 
 with open( args.v ) as tsv :
@@ -113,6 +117,8 @@ with open( args.v ) as tsv :
 
         ### now print the read counts for each admixed sample
         for s in range(9, len( line ) ) :
+
+            ### only admixed samples
             if ( sample_files[s] in sample2pop and sample2pop[sample_files[s]] == "admixed" ) :
 
                 ### print genotypes
@@ -129,6 +135,8 @@ with open( args.v ) as tsv :
                         print( "\t", 0, "\t", 1, end = "", sep = "" )
                     else :
                         print( "\t", 0, "\t", 0, end = "", sep = "" )
+                    if ( ploidy_print == 0 ) :
+                        print(sample_files[s], 2, sep = "\t", file=open(args.o, "a") )
 
                 ### print read counts
                 else :
@@ -138,10 +146,12 @@ with open( args.v ) as tsv :
                         print ( "\t", ad[0], "\t", ad[1], end = "", sep = "" )
                     else :
                         print ( "\t", 0, "\t", 0,  end = "", sep = "" )
+                    if ( ploidy_print == 0 ) :
+                        print(sample_files[s], 2, sep = "\t", file=open(args.o, "a") )
 
         ## newline
         print ()
 
         ### update last position after printing
         last_position = int( line[1] )
-
+        ploidy_print = 1

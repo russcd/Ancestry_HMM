@@ -1,4 +1,10 @@
-##This is a simple updated version of our vcf2ahmm script to take an input vcf file and output a file compatible ancestry_hmm. 
+# This is a simple updated version of our vcf2ahmm script to take an input vcf file and output a file compatible ancestry_hmm. 
+
+## Disclaimer:
+
+This script is provided as a simple utility to convert vcf files to ahmm input. I do not expect that it will be suitable for all possible use cases. Please read this carefully and feel free to post questions/requests as needed. See all Assumptions below. 
+
+## Basic Usage:
 
 The script takes the following required options.
 
@@ -19,12 +25,12 @@ sample5 admixed
 
 This file has two individuals from ancestral population 0, two individuals from ancestral population 1, and a single admixed sample.
 
-##Assumptions:
+## Assumptions:
 
 1. Sample are either diploid or haploid. The allele depth field (AD), immediately follows the genotype (GT) in the vcf format. This is typical of most VCF files. 
 2. A single uniform per basepair, per generation recombination rate should be used. Default: 1e-8. 
 
-##Optional arguments:
+## Optional arguments:
 
 1. "-g 1" indicates that admixed sample genotypes (rather than allele counts) should be used
 2. "-r [float]" sets the 

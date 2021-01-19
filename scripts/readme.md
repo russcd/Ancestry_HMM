@@ -17,15 +17,11 @@ Where the sample2population mapping file is a text-based table with two columns.
 
 e.g. 
 
-sample1	0
-
-sample2	0
-
-sample3 1
-
-sample4 1
-
-sample5 admixed
+sample1	0. 
+sample2	0. 
+sample3 1. 
+sample4 1. 
+sample5 admixed. 
 
 This file has two individuals from ancestral population 0, two individuals from ancestral population 1, and a single admixed sample.
 

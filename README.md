@@ -30,9 +30,7 @@ It is also recommend that users install the google-perftools package as compilat
 
 Information on our method's performance with multiple pulse models can be found in Medina et al. (2018). Single pulse models perform as described previously in Corbett-Detig and Nielsen (2017). 
 
-The version used to produce the results in Corbett-Detig and Nielsen is maintained as version_0.4/
-
-The version used to produce the resutls in Medina et al. is maintained as version_0.94/ 
+The versions used to produce the results in Corbett-Detig and Nielsen and in Medina et al are available via tagged release v0.99. 
 
 #### Basic Usage:
 

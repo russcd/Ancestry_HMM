@@ -33,6 +33,12 @@ void read_file ( cmd_line &options, vector<markov_chain> &markov_chain_informati
             new_line.reference_counts[p].push_back(count1) ;
             new_line.reference_counts[p].push_back(count2) ;
             new_line.reference_counts[p].push_back(count1+count2) ;
+
+	/// note that this subsampling approach assumes this is only necessary for human data. which for now is the only plausible dataset with reference population sizes thi slarge. 
+            if ( new_line.reference_counts[p][2] > 998 ) { 
+                subsample_reads( new_line.reference_counts[p][0], new_line.reference_counts[p][1], 998 ) ;
+		new_line.reference_counts[p][2] = new_line.reference_counts[p][0] + new_line.reference_counts[p][1] ; 
+            }
         }
         
         /// read recombination rate
@@ -53,7 +59,7 @@ void read_file ( cmd_line &options, vector<markov_chain> &markov_chain_informati
             
             /// subsample reads to a maximum depth so we can compute multinomial probs without overflow errors
             if ( count1 + count2 > 170 ) {
-                subsample_reads( count1, count2 ) ;
+                subsample_reads( count1, count2, 170 ) ;
             }
             
             /// now store counts and total for sample

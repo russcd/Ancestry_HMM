@@ -88,7 +88,7 @@ A single file, specifying sample ID’s and their ploidy, or path to a ploidy ma
 
         -v  	Viterbi decoding, default decoding is forward-backward  
         -g 	sample counts provided are genotypes rather than read counts  
-                -b [int] [int] 	If bootstrap replicates are to be performed, specify –b and the number of bootstraps and the block size of bootstraps. E.g., “-b 10 1000” would indicate 10 bootstrap replicates each using a block size of 1000 SNPs.   
+        -b [int] [int] 	If bootstrap replicates are to be performed, specify –b and the number of bootstraps and the block size of bootstraps. E.g., “-b 10 1000” would indicate 10 bootstrap replicates each using a block size of 1000 SNPs.   
         --output-ancestry 	If more than one pulse originated in the same source population, these will be summed and the output will be only ancestry states ordered as in the input file. Note that in the current version, this is not compatible with Viterbi decoding, –v, above.   
         --precision	Set output precision   
         -r	Number of restarts during nelder-mead search  

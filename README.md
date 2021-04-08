@@ -4,23 +4,23 @@
 
 #### Download and Compile:  
 
-        $ git clone https://github.com/russcd/Ancestry_HMM.git
-        $ cd Ancestry_HMM/src/
-        $ make
+        git clone https://github.com/russcd/Ancestry_HMM.git
+        cd Ancestry_HMM/src/
+        make
 
 #### Dependencies:  
 
 The software requires the C++ linear algebra library, armadillo. More information and detailed download instructions can be found here, http://arma.sourceforge.net/. Using homebrew on OSX, this software can be installed using
 
-        $ brew install armadillo
+        brew install armadillo
 	
 On Ubuntu:
 
-        $ sudo apt-get install libarmadillo-dev
+        sudo apt-get install libarmadillo-dev
 	
 If you cannot get a root installation of armadillo, we recommend miniconda3
 
-        $ conda install -c conda-forge armadillo
+        conda install -c conda-forge armadillo
 
 Information on how to link a conda-based installation of armadillo during compilation and runtime is provided in src/Makefile. 
 
@@ -34,7 +34,7 @@ The versions used to produce the results in Corbett-Detig and Nielsen and in Med
 
 #### Basic Usage:
 
-        $ ancestry_hmm –i [input_file] –s [sample_file] -a [int] [double] [double] -p [int] [int] [double] -p [int] [int] [double]
+        ancestry_hmm –i [input_file] –s [sample_file] -a [int] [double] [double] -p [int] [int] [double] -p [int] [int] [double]
 
 #### Detailed Options and Usage:
 
@@ -86,21 +86,21 @@ A single file, specifying sample ID’s and their ploidy, or path to a ploidy ma
 
 *Optional:*
 
--v  	Viterbi decoding, default decoding is forward-backward  
--g 	sample counts provided are genotypes rather than read counts  
-        -b [int] [int] 	If bootstrap replicates are to be performed, specify –b and the number of bootstraps and the block size of bootstraps. E.g., “-b 10 1000” would indicate 10 bootstrap replicates each using a block size of 1000 SNPs.   
---output-ancestry 	If more than one pulse originated in the same source population, these will be summed and the output will be only ancestry states ordered as in the input file. Note that in the current version, this is not compatible with Viterbi decoding, –v, above.   
---precision	Set output precision   
--r	Number of restarts during nelder-mead search  
---tmax	Maximum time of a pulse  
---tmin	Minimum time of a pulse  
---pmax	Maximum portion of ancestry from one ancestry type, note that this argument and the one below is only relevant for models with two pulses from the same source population.   
---pmin	Minimum portion of ancestry from one ancestry type  
---tolerance	Difference in log likelihood between worst and best vertices for search termination.   
--e	Error rate per site (either genotype or read)  
--E	If present on the command line, site specific error rates are provided in the input file. Error rates must appear in the two columns following the recombination rates.   
---ne	The effective population size, n. By default this number is multiplied by 2 to accommodate diploid populations. However, for use with autotetraploids for example, it might be reasonable to supply 2n instead.   
---fix	Ancestral allele frequencies are fixed, rather than treated as uncertain. This is expected to be useful when parental sequences are known with certainty, for example in performing qtl mapping or in experimental evolution studies.   
+        -v  	Viterbi decoding, default decoding is forward-backward  
+        -g 	sample counts provided are genotypes rather than read counts  
+                -b [int] [int] 	If bootstrap replicates are to be performed, specify –b and the number of bootstraps and the block size of bootstraps. E.g., “-b 10 1000” would indicate 10 bootstrap replicates each using a block size of 1000 SNPs.   
+        --output-ancestry 	If more than one pulse originated in the same source population, these will be summed and the output will be only ancestry states ordered as in the input file. Note that in the current version, this is not compatible with Viterbi decoding, –v, above.   
+        --precision	Set output precision   
+        -r	Number of restarts during nelder-mead search  
+        --tmax	Maximum time of a pulse  
+        --tmin	Minimum time of a pulse  
+        --pmax	Maximum portion of ancestry from one ancestry type, note that this argument and the one below is only relevant for models with two pulses from the same source population.   
+        --pmin	Minimum portion of ancestry from one ancestry type  
+        --tolerance	Difference in log likelihood between worst and best vertices for search termination.   
+        -e	Error rate per site (either genotype or read)  
+        -E	If present on the command line, site specific error rates are provided in the input file. Error rates must appear in the two columns following the recombination rates.   
+        --ne	The effective population size, n. By default this number is multiplied by 2 to accommodate diploid populations. However, for use with autotetraploids for example, it might be reasonable to supply 2n instead.   
+        --fix	Ancestral allele frequencies are fixed, rather than treated as uncertain. This is expected to be useful when parental sequences are known with certainty, for example in performing qtl mapping or in experimental evolution studies.   
 
 
 #### Sample File Format

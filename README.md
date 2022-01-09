@@ -1,4 +1,4 @@
-# Ancestry HMM Manual  
+# Ancestry HMM  
 
 ### Russ Corbett-Detig
 

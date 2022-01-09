@@ -15,6 +15,7 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
+#include <omp.h> 
 using namespace std ;
 
 /// linear algebra library is armadillo
@@ -209,17 +210,23 @@ int main ( int argc, char *argv[] ) {
     /// output forward-backward full probability distribution by default
     else {
         cerr << (double) (clock() - t) << " ms" << endl << "computing forward probabilities\t" ; t = clock() ;
-        double lnl = 0 ;
+	vector<double> lnl (markov_chain_information.size(), 0) ;
+        #pragma omp parallel for
         for ( int m = 0 ; m < markov_chain_information.size() ; m ++ ) {
-            lnl += markov_chain_information[m].compute_forward_probabilities( transition_matrix, interploidy_transitions ) ;
+            lnl[m] = markov_chain_information[m].compute_forward_probabilities( transition_matrix, interploidy_transitions ) ;
         }
+	
+        double likelihood = 0 ;
+        for ( int l = 0 ; l < lnl.size() ; l ++ ) { likelihood += lnl[l] ;}
         
-        cerr << "lnl: " << lnl << "\t\t" << (double) (clock() - t) << " ms" << endl << "computing backward probabilities\t\t\t" ; t = clock() ;
+        cerr << "lnl: " << likelihood << "\t\t" << (double) (clock() - t) << " ms" << endl << "computing backward probabilities\t\t\t" ; t = clock() ;
+        #pragma omp parallel for 
         for ( int m = 0 ; m < markov_chain_information.size() ; m ++ ) {
             markov_chain_information[m].compute_backward_probabilities( transition_matrix, interploidy_transitions ) ;
         }
         
         cerr << (double) (clock() - t) << " ms" << endl << "forward-backward posterior decoding and printing\t\t\t" ; t = clock() ;
+        #pragma omp parallel for 
         for ( int m = 0 ; m < markov_chain_information.size() ; m ++ ) {
             markov_chain_information[m].combine_prob( position, state_list, chromosomes, options.output_pulses, optimum ) ;
         }

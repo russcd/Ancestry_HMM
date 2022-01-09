@@ -14,6 +14,7 @@ void create_transition_matrix ( map<int,vector<mat> > &transition_matrix , vecto
     transition_matrix[number_chromosomes].resize(recombination_rate.size()) ;
     
     //// iterate across all positions and compute transition matrixes
+    #pragma omp parallel for 
     for ( int p = 1 ; p < recombination_rate.size() ; p ++ ) {
         
         /// create actual transition matrix
@@ -44,10 +45,10 @@ void create_transition_matrix ( map<int,vector<mat> > &transition_matrix , vecto
         /// create final transition matrix via exponentiation by squaring
         mat segment_transitions ;
         if ( recombination_rate[p] > 0.49 ) {
-            segment_transitions = exp_matrix( site_transitions, 2 ) ;
+            segment_transitions = powmat( site_transitions, 2 ) ;
         }
         else {
-            segment_transitions = exp_matrix( site_transitions, positions[p] - positions[p-1] ) ;
+            segment_transitions = powmat( site_transitions, positions[p] - positions[p-1] ) ;
         }
                 
         /// population transitions by summing across all routes

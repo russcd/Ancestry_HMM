@@ -119,6 +119,7 @@ void read_file ( cmd_line &options, vector<markov_chain> &markov_chain_informati
     
         /// 
         if ( options.genotype == false ) {
+	    #pragma omp parallel for
             for ( int m = 0 ; m < markov_chain_information.size() ; m ++ ) {
                 vec emissions ;
                 create_emissions_matrix( markov_chain_information[m].sample_ploidy_path[path_index[m]].ploidy, new_line, options.ancestral_fixed, state_list[markov_chain_information.at(m).sample_ploidy_path[path_index[m]].ploidy], m, options.ancestry_pulses, emissions ) ;
@@ -128,6 +129,7 @@ void read_file ( cmd_line &options, vector<markov_chain> &markov_chain_informati
         
         /// create emissions matrix with genotypes
         else {
+	    #pragma omp parallel for
             for ( int m = 0 ; m < markov_chain_information.size() ; m ++ ) {
                 vec emissions ;
                 create_emissions_matrix_genotype( markov_chain_information[m].sample_ploidy_path[path_index[m]].ploidy, new_line, options.ancestral_fixed, state_list[markov_chain_information.at(m).sample_ploidy_path[path_index[m]].ploidy], m, options.ancestry_pulses, emissions ) ;

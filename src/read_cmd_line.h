@@ -168,6 +168,11 @@ void cmd_line::read_cmd_line ( int argc, char *argv[] ) {
             n_bootstraps = atoi(argv[++i]) ;
             block_size = atoi(argv[++i]) ;
         }
+
+        /// set the number of threads
+        if ( strcmp(argv[i],"--threads") == 0 ) {
+            omp_set_num_threads( atoi(argv[++i]) ) ; 
+        }
         
         /// to bound possible pulse times
         if ( strcmp(argv[i],"--tmax") == 0 ) {

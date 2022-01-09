@@ -21,11 +21,18 @@ double evaluate_vertex( vector<pulse> &vertex, vector<markov_chain> &markov_chai
     interploidy_transitions = create_interploidy_transitions( state_changes, vertex, options.ancestry_proportion ) ;
     
     /// now compute the forward probabilities
-    double lnl = 0 ;
+    vector<double> lnl (markov_chain_information.size(), 0) ;
+    #pragma omp parallel for 
     for ( int m = 0 ; m < markov_chain_information.size() ; m ++ ) {
-        lnl += markov_chain_information[m].compute_forward_probabilities( transition_matrix, interploidy_transitions ) ;
+        lnl[m] = markov_chain_information[m].compute_forward_probabilities( transition_matrix, interploidy_transitions ) ;
     }
-    return lnl ;
+
+    double likelihood = 0 ; 
+    for ( int l = 0 ; l < lnl.size() ; l ++ ) { 
+	likelihood += lnl[l] ; 
+    }
+
+    return likelihood ;
 }
 
 #endif

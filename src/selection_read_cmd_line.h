@@ -1,5 +1,5 @@
-#ifndef __READ_CMD_LINE_H
-#define __READ_CMD_LINE_H
+#ifndef __SELECTION_READ_CMD_LINE_H
+#define __SELECTION_READ_CMD_LINE_H
 
 void cmd_line::read_cmd_line ( int argc, char *argv[] ) {
     
@@ -76,6 +76,31 @@ void cmd_line::read_cmd_line ( int argc, char *argv[] ) {
     /// bootstraps
     n_bootstraps = 0 ;
     block_size = 0 ;
+
+    // selection
+    is_limit = false ;
+    calc_grid = false;
+    test_point = false;
+    is_coord = false;
+
+    // if --chr_win is not set, read whole chromosome
+    limit_win_start = 0; 
+    limit_win_end = 1000000000;
+
+    win_unit = "p"; // set default window size unit to percent
+    win_percent = 100; // default window size in percent
+    //win_morgan = 0.1; // default window size in morgans
+
+    // golden section search (gss) parameters
+    gs_precision = 1e-5; // minimum recision in estimation of selection coeffient in gss
+    gs_sstep = 0.001;
+
+    // number of runs for the stochastic trajectory function
+    stochastic_reps = 1000;
+
+    // optimizes upper bound for the selection coefficient search space. Makes things faster.
+    // Default true. Can be turned off with --full_selection_space
+    limit_sel_space = true;
     
 	/// accept command line parameters
 	for (int i=1; i<argc; i++) {
@@ -117,7 +142,11 @@ void cmd_line::read_cmd_line ( int argc, char *argv[] ) {
             ancestry_pulses.push_back( new_ancestry_pulse ) ;
             ancestry_pulses.back().entry_order = ancestry_pulses.size() - 1 ;
         }
+
+
     
+
+
         //// for each ancestry type, set the total ancestry fraction
         //// this must be set and equal to all the ancestry types listed above
         if ( strcmp(argv[i],"-a") == 0 ) {
@@ -217,6 +246,107 @@ void cmd_line::read_cmd_line ( int argc, char *argv[] ) {
         if ( strcmp(argv[i],"--fix") == 0 ) {
             ancestral_fixed = true ;
         }
+
+
+
+        ///// Adaptive introgression stuff below
+
+
+        /// activate selection detection module
+        /// uses the following format -j chromosome_of_interest (str) site_of_interest start_window (int) 
+        /// window_start (int) window_end (int)
+        if ( strcmp(argv[i],"--chr") == 0 ) {
+            is_limit = true ;
+            limit_chr = string(argv[++i]) ;
+        }
+
+        if ( strcmp(argv[i],"--chr_win") == 0 ) {
+            limit_win_start = atoi(argv[++i]) ;
+            limit_win_end = atoi(argv[++i]) ;
+
+            cerr << endl << limit_chr << "\t" << limit_win_start << "\t" << limit_win_end << "\t" << endl ;
+
+            /// check if win_start < win_end and site is located within window
+            if ( limit_win_end <= limit_win_start ) {
+                cerr << "\n\n\t\t ERROR: formatting for window is wrong\n\n" ;
+                print_usage() ;
+                exit(1) ;
+            }
+        }
+
+        if ( strcmp(argv[i],"--grid") == 0 ) {
+            calc_grid = true;
+            grid_pstart = atoi(argv[++i]);
+            grid_pstop = atoi(argv[++i]);
+            grid_pstep = atoi(argv[++i]);
+            grid_sstart = atof(argv[++i]);
+            grid_sstop = atof(argv[++i]);
+            grid_sstep = atof(argv[++i]);
+        }
+
+        if ( strcmp(argv[i],"--gss") == 0 ) {
+            run_gss = true;
+            gs_pstart = atoi(argv[++i]);
+            gs_pstop = atoi(argv[++i]);
+            gs_pstep = atoi(argv[++i]);
+            gs_sstart = atof(argv[++i]);
+            gs_sstop = atof(argv[++i]);
+        }
+
+        if ( strcmp(argv[i],"--gss_precision") == 0 ) {
+            gs_precision = atof(argv[++i]);
+        }
+
+        if ( strcmp(argv[i], "--unit_coords" ) == 0 ) {
+            is_coord = true ; 
+        }
+
+        if ( strcmp(argv[i],"--site") == 0 ) {
+            test_point = true;
+            test_pos = atoi(argv[++i]);
+            test_sel = atof(argv[++i]);
+        }
+
+        // control window size for selection
+        if ( strcmp(argv[i],"--window") == 0 ) {
+            win_unit = string(argv[++i]);
+
+            if ( win_unit == "m") {
+                win_morgan = atof(argv[++i]);
+                if (win_morgan <= 0) {
+                    cerr << "\n\n\t\tERROR: windows size has to be specified with positive value.\n\n" ;
+                    exit(1) ;
+                }
+            }
+            else if (win_unit == "p") {
+                win_percent = atof(argv[++i]);
+                if (win_percent <= 0 || win_percent > 100) {
+                    cerr << "\n\n\t\tERROR: windows size has to be specified in percent (1-100).\n\n" ;
+                    exit(1) ;
+                }
+            }
+            else {
+                cerr << "\n\n\t\tERROR: wrong unit for window size.\n\n" ;
+                print_usage() ;
+                exit(1) ;
+            }
+        }
+
+        if ( strcmp(argv[i],"--traj") == 0 ) {
+            traj_function = atoi(argv[++i]) ;
+        }
+
+        if ( strcmp(argv[i],"--stochastic") == 0 ) {
+            use_stochastic = true;
+        }
+
+        if ( strcmp(argv[i],"--stochastic_reps") == 0 ) {
+            stochastic_reps = atoi(argv[++i]) ;
+        }
+
+        if ( strcmp(argv[i],"--full_selection_space") == 0 ) {
+            limit_sel_space = false;
+        }
     }
     
     if ( input_file == "null" ) {
@@ -229,11 +359,7 @@ void cmd_line::read_cmd_line ( int argc, char *argv[] ) {
         print_usage() ;
         exit(1) ;
     }
-    if ( ancestry_proportion.size() > ancestry_pulses.size() ) {
-	cerr << "\n\n\t\tERROR: insufficient ancestry pulses specified\n\n" ;
-	print_usage() ; 
-	exit(1) ; 
-    }
+
     return ;
 }
 

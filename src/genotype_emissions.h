@@ -137,6 +137,16 @@ void create_emissions_matrix_genotype( double n, input_line &new_line, bool &anc
             emission_matrix[i] +=  prob_counts * a->second ;
         }
     }
+
+    /// check if any entries are 0 and set to smallest possible float
+    for ( int i = 0 ; i < emission_matrix.size() ; i ++ ) {
+        if ( emission_matrix(i) == 0 ) {
+            emission_matrix(i) = 1.17549e-38 ;
+        }
+    }
+
+    return ; 
+
 }
 
 #endif
